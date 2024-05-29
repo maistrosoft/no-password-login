@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/mobile_number_page.css">
+    <link rel="stylesheet" href="css/loading_screen.css">
 
 </head>
 
@@ -27,6 +28,12 @@
                 <button type="submit" class="btn btn-default btn-lg btn-block request-otp">Get OTP</button>
             </form>
         </div>
+        
+        <!-- Loading Screen -->
+        <div class="d-none" id="loading-wrapper">
+            <div id="loading-text">LOADING</div>
+            <div id="loading-content"></div>
+        </div>
 
         <div id='verify-otp' class="login-setup-section">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -37,10 +44,17 @@
                     <input type="number" class="form-control input-edit" placeholder='Enter OTP' id="OTPnumber" required>
                     <label class="pull-right resend-otp">Didn't receive code? <a href="#">Request again</a></label>
                 </div>
+                    <br>
+                <div class="alert alert-warning text-center">
+                    <b>Don't refresh this page</b>
+                </div>
                 <button type="submit" class="btn btn-default btn-lg btn-block request-otp ">Verify</button>
             </form>
         </div>
     </div>
+    <!-- SweerAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="js/mobile_number_page.js"></script>
     <script src="js/cognito.js"></script>
 
