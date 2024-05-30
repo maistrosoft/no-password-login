@@ -22,14 +22,14 @@ label {
 }
 
 .input-edit {
-    border: none !important;
-    border-bottom: 2px solid #ccc !important;
+    /* border: none !important; */
+    /* border-bottom: 2px solid #ccc !important; */
     padding: 6px 0px;
     opacity: 0.8;
 }
 
 .input-edit:focus {
-    border-bottom-color: #328bc7 !important;
+    /* border-bottom-color: #328bc7 !important; */
     box-shadow: none;
     outline: 0;
 }

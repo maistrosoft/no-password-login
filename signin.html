@@ -23,7 +23,7 @@
             <form id="form">
                 <div class="form-group login-label">
                     <label for="inputnumber">mobile number</label>
-                    <input type="text" class="form-control input-edit" placeholder='Ex: +911234567890' id="number" required>
+                    <input type="text" class="form-control input-edit" placeholder='Ex: +911234567890' id="number" onkeyup="validation()" required>
                 </div>
                 <button type="submit" class="btn btn-default btn-lg btn-block request-otp">Get OTP</button>
             </form>
@@ -41,8 +41,8 @@
             <form id="otpForm">
                 <div class="form-group login-label">
                     <label for="inputnumber">One Time Password</label>
-                    <input type="number" class="form-control input-edit" placeholder='Enter OTP' id="OTPnumber" required>
-                    <label class="pull-right resend-otp">Didn't receive code? <a href="#">Request again</a></label>
+                    <input type="text" class="form-control input-edit" placeholder='Enter OTP' pattern="\d{6}" maxlength="6" id="OTPnumber" required>
+                    <label class="pull-right resend-otp">Didn't receive code? <a href="javascript:void(0)" onclick="resendOTP()">Request again</a></label>
                 </div>
                     <br>
                 <div class="alert alert-warning text-center">

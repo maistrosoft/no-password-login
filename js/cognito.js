@@ -4,14 +4,19 @@ document.querySelector('#form').addEventListener('submit', (e) => {
 
     const phone_number = document.querySelector('#number')
 
-    // Calling the signIN function
-    // Displaying loading screen
-    document.querySelector('#loading-wrapper').classList.remove('d-none')
-
-    signIn(phone_number.value)
+    if(validateMobileNumber(phone_number.value)){
+        // Calling the signIN function
+        signIn(phone_number.value)
+    }
+    else {
+        alert('Invalid mobile number format')
+    }
 })
 
 function signIn(phone_number) {
+    // Displaying loading screen
+    document.querySelector('#loading-wrapper').classList.remove('d-none')
+    
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "application/json")
 
@@ -32,7 +37,6 @@ function signIn(phone_number) {
             // Removing loading screen after getting result
             document.querySelector('#loading-wrapper').classList.add('d-none')
 
-            console.log(result.body)
             if(result.statusCode == 200){
                 Swal.fire({
                     icon: 'success',
@@ -47,6 +51,17 @@ function signIn(phone_number) {
                 document.getElementById('sign-in').style.display = 'none'
                 document.getElementById('verify-otp').style.display = 'block'
                 document.querySelector('#mobile_number_placeholder').innerHTML = phone_number
+                window.addEventListener('beforeunload',  (e) => {
+                    // Prevent the default action of the event
+                    e.preventDefault()
+                
+                    // For some browsers, e.returnValue needs to be set
+                    e.returnValue = ''
+                
+                    // Return a value for older browsers
+                    return ''
+                })
+                
             }
             else {
                 Swal.fire({
@@ -92,16 +107,31 @@ function verifyOTP(OTP){
     fetch("https://xo6m7i8hlg.execute-api.ap-south-1.amazonaws.com/dev/cognito-custom-auth/respond-to-auth-challenge", requestOptions)
         .then((response) => response.json())
         .then((result) => {
+            console.log(result)
             // Remove loading screen
             document.querySelector('#loading-wrapper').classList.add('d-none')
-            console.log(result)
             if(result.statusCode == 200){
-                parsedBody = JSON.parse(result.body)
-                console.log(parsedBody.AuthenticationResult)
-                sessionStorage.setItem('id_token', parsedBody.AuthenticationResult.IdToken)
-                sessionStorage.setItem('access_token', parsedBody.AuthenticationResult.AccessToken)
-                location.href = `https://dailykural.in/searchblogs.html#id_token=${parsedBody.AuthenticationResult.IdToken}&access_token=${parsedBody.AuthenticationResult.AccessToken}`
+                try {
+                    parsedBody = JSON.parse(result.body)
+                    sessionStorage.setItem('id_token', parsedBody.AuthenticationResult.IdToken)
+                    sessionStorage.setItem('access_token', parsedBody.AuthenticationResult.AccessToken)
+                    location.href = `https://dailykural.in/searchblogs.html#id_token=${parsedBody.AuthenticationResult.IdToken}&access_token=${parsedBody.AuthenticationResult.AccessToken}`
+                }
+                catch(error){
+                    console.log(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops!',
+                        text: 'Invalid OTP!',
+                        footer: `<div class="alert alert-danger">You entered invalid OTP request again for OTP!</div>`
+                    })
+                }
             }
         })
         .catch((error) => console.error(error))
+}
+
+function resendOTP(){
+   let number = document.querySelector('#mobile_number_placeholder').innerHTML
+   signIn(number)
 }
