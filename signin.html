@@ -23,40 +23,55 @@
             <form id="form">
                 <div class="form-group login-label">
                     <label for="inputnumber">mobile number</label>
-                    <input type="text" class="form-control input-edit" placeholder='Ex: +911234567890' id="number" onkeyup="validation()" required>
+                    <input type="text" class="form-control input-edit" placeholder='Ex: +911234567890' id="number"
+                        onkeyup="validation()" required>
                 </div>
                 <button type="submit" class="btn btn-default btn-lg btn-block request-otp">Get OTP</button>
             </form>
         </div>
-        
+
         <!-- Loading Screen -->
         <div class="d-none" id="loading-wrapper">
             <div id="loading-text">LOADING</div>
             <div id="loading-content"></div>
         </div>
+        <div id='verify-otp' class="login-setup-section d-none">
+            <div class="container-fluid bg-body-tertiary d-block">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-6 col-lg-4" style="min-width: 500px;">
+                        <div class="card bg-white mb-5 mt-5 border-0"
+                            style="box-shadow: 0 12px 15px rgba(0, 0, 0, 0.02);">
+                            <div class="card-body p-5 text-center">
+                                <h4>Verify</h4>
+                                <p>Your code was sent to <span id="mobile_number_placeholder"></span></p>
 
-        <div id='verify-otp' class="login-setup-section">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            <h3 class="request-otp-header">OTP sent to <span id="mobile_number_placeholder"></span></h3>
-            <form id="otpForm">
-                <div class="form-group login-label">
-                    <label for="inputnumber">One Time Password</label>
-                    <input type="text" class="form-control input-edit" placeholder='Enter OTP' pattern="\d{6}" maxlength="6" id="OTPnumber" required>
-                    <label class="pull-right resend-otp">Didn't receive code? <a href="javascript:void(0)" onclick="resendOTP()">Request again</a></label>
+                                <div class="otp-field mb-4">
+                                    <input type="number" />
+                                    <input type="number" disabled />
+                                    <input type="number" disabled />
+                                    <input type="number" disabled />
+                                    <input type="number" disabled />
+                                    <input type="number" disabled />
+                                </div>
+
+                                <button class="btn btn-primary mb-3" id="otpBtn">
+                                    Verify
+                                </button>
+
+                                <p class="resend text-muted mb-0">
+                                    Didn't receive code? <a href="javascript:void(0)" onclick="resendOTP()">Request again</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                    <br>
-                <div class="alert alert-warning text-center">
-                    <b>Don't refresh this page</b>
-                </div>
-                <button type="submit" class="btn btn-default btn-lg btn-block request-otp ">Verify</button>
-            </form>
+            </div>
         </div>
-    </div>
-    <!-- SweerAlert CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- SweerAlert CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="js/mobile_number_page.js"></script>
-    <script src="js/cognito.js"></script>
+        <script src="js/mobile_number_page.js"></script>
+        <script src="js/cognito.js"></script>
 
 </body>
 
